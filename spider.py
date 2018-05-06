@@ -9,6 +9,8 @@ today = time.localtime()
 if today[1] < 11:
     mon = "0" + str(time.localtime()[1])
 today = str(today[0]) + "." + mon + "." + str(today[2])
+if today[-2] == '.':
+    today = today[:8] + '0' + today[-1]
 
 def get_html():
     url = "http://www.pkulaw.cn/cluster_form.aspx?Db=news&menu_item=\
@@ -29,7 +31,6 @@ def cook_soup(h):
 
     for tr in rough.children:
         if isinstance(tr, bs4.element.Tag):
-            #pdb.set_trace()
             #pdb.set_trace()
             try:
                 content = tr.text.strip("\n") + "  " + "http://www.pkulaw.cn/" \
@@ -69,5 +70,7 @@ def main():
             print(i)
     else:
         print("今日法律新闻:")
+        for i in lst:
+            print(i)
 
 main()
